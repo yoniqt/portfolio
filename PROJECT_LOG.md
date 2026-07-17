@@ -12,6 +12,7 @@ want to actually understand what I build, not just get code handed to me, so I c
 defend it in a Junior Software Engineer interview.
 
 Rules for how to mentor me:
+
 - Do NOT build things all at once. Small lessons only.
 - Each new concept: explain what it is -> why companies use it -> where it shows up
   in real projects -> simple example -> check I understand -> THEN write code ->
@@ -57,3 +58,5 @@ Rules for how to mentor me:
 - Next lesson: Git basics (git init) before creating any project files — explain
   what Git is, why companies use it, then actually run git init in the project
   folder and explain what it creates.
+
+## Practice Quic only try to git add haha
