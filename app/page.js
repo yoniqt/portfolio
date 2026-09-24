@@ -19,7 +19,12 @@ import {
 } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa";
 
-const roles = ["Full-Stack Web Developer", "React & Next.js Developer", "Laravel Developer"];
+const roles = [
+  "Full-Stack Developer",
+  "Software Engineer",
+  "React & Next.js Developer",
+  "Laravel Developer",
+];
 
 const socials = [
   { href: "https://github.com/yoniqt", label: "GitHub", icon: SiGithub },
@@ -150,9 +155,10 @@ export default function Home() {
             variants={fadeUp}
             className="mt-6 max-w-lg text-base leading-relaxed text-[var(--hero-muted)]"
           >
-            Learning and building full-stack projects with React, Next.js, and
-            Laravel, with the goal of landing a stable role where I can keep
-            growing as an engineer.
+            I build full-stack web applications with React, Next.js, and
+            Laravel — from a hotel reservation platform to a barangay
+            management system — and I&apos;m looking for a team where I can
+            keep growing as an engineer.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
