@@ -1,26 +1,231 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Design tokens ---------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f4f4f6;
+  --border: rgba(24, 24, 27, 0.1);
+  --text: #18181b;
+  --text-muted: #6b6b76;
+  --primary: #6366f1;
+  --primary-2: #8b5cf6;
+  --accent: #f59e0b;
+  --ring: rgba(99, 102, 241, 0.5);
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+}
+
+.dark {
+  --bg: #08080a;
+  --surface: #131316;
+  --surface-2: #1a1a1f;
+  --border: rgba(255, 255, 255, 0.09);
+  --text: #f4f4f6;
+  --text-muted: #9797a3;
+  --primary: #818cf8;
+  --primary-2: #a78bfa;
+  --accent: #fbbf24;
+  --ring: rgba(129, 140, 248, 0.5);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-primary-2: var(--primary-2);
+  --color-accent: var(--accent);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-space-grotesk);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ---------- Base ---------- */
+* {
+  border-color: var(--border);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--primary);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Section eyebrow ---------- */
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ---------- Ambient background: grid + noise + drifting glow ---------- */
+.ambient-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -20;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  opacity: 0.5;
+}
+
+.ambient-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -30;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(99, 102, 241, 0.18), transparent 42%),
+    radial-gradient(circle at 88% 18%, rgba(245, 158, 11, 0.13), transparent 42%),
+    radial-gradient(circle at 50% 100%, rgba(139, 92, 246, 0.1), transparent 50%);
+}
+
+.dark .ambient-glow {
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(99, 102, 241, 0.22), transparent 42%),
+    radial-gradient(circle at 88% 18%, rgba(245, 158, 11, 0.14), transparent 42%),
+    radial-gradient(circle at 50% 100%, rgba(139, 92, 246, 0.14), transparent 50%);
+}
+
+@keyframes blob-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -40px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+.blob {
+  animation: blob-float 16s ease-in-out infinite;
+}
+
+/* ---------- Gradient text / border utilities ---------- */
+.text-gradient {
+  background-image: linear-gradient(90deg, var(--primary), var(--primary-2), var(--accent));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.gradient-border {
+  position: relative;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(155deg, var(--primary), var(--primary-2), var(--accent));
+  padding: 3px;
+}
+
+.gradient-border > * {
+  border-radius: calc(var(--radius-xl) - 3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Hero-only tokens ----------
+   Scoped so nothing outside the hero component reads these - the rest of
+   the site keeps its existing --primary/--accent/etc untouched. */
+:root {
+  --hero-bg: #faf9fc;
+  --hero-surface: #ffffff;
+  --hero-text: #14121f;
+  --hero-muted: #5b5870;
+  --hero-primary: #5b4bd6;
+  --hero-primary-light: #8b7cf6;
+  --hero-accent: #d98a1c;
+  --hero-success: #34d399;
+}
+
+.dark {
+  --hero-bg: #07070c;
+  --hero-surface: #12111c;
+  --hero-text: #f4f3f8;
+  --hero-muted: #a19fb4;
+  --hero-primary: #6d5ce8;
+  --hero-primary-light: #8b7cf6;
+  --hero-accent: #f5b04a;
+  --hero-success: #34d399;
+}
+
+/* ---------- Hero: blinking cursor on the rotating role text ---------- */
+@keyframes hero-cursor-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.hero-cursor {
+  animation: hero-cursor-blink 1.1s step-end infinite;
+}
+
+/* ---------- Hero: infinite tech logo marquee ---------- */
+@keyframes hero-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hero-marquee-track {
+  animation: hero-marquee 32s linear infinite;
+}
+
+.hero-marquee-viewport:hover .hero-marquee-track {
+  animation-play-state: paused;
+}
+
+.hero-marquee-viewport {
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
 }

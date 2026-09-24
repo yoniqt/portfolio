@@ -49,14 +49,47 @@ Rules for how to mentor me:
    Management System, Hotel Booking System, Inventory System, Barangay Management
    System. This becomes a featured case study INSIDE the portfolio site once built.
 
+## Portfolio site structure (decided)
+
+Homepage sections, in order: Hero/Intro -> About Me -> Skills/Tech Stack -> Projects
+showcase -> Contact. Building one section at a time. Projects section will later
+link to/showcase the CRUD system (Clinic/Hotel/etc.) once that's built.
+
 ## Where we left off (update this section as we progress)
 
-- Status: environment setup phase, before any code has been written.
-- Done: Node.js LTS installed and confirmed working (node v24.18.0, npm 11.16.0).
-  Learned what Node.js/npm are and why they're needed, difference between browser
-  JS engines and Node, npm-the-tool vs. a-package.
-- Next lesson: Git basics (git init) before creating any project files — explain
-  what Git is, why companies use it, then actually run git init in the project
-  folder and explain what it creates.
+- Node.js, Git/GitHub, and the Next.js scaffold are all done and understood
+  (App Router, Pages, Layouts, Server/Client components, routing).
+- Detour: spent a long session deep-diving PinacConnect (the user's capstone)
+  for OJT/interview prep instead of this project — see the PinacConnect
+  memory notes in Claude's memory system for that. Cleaned up that repo,
+  connected it to GitHub, generated a consolidated schema.sql, and built a
+  REVIEW.md study guide covering the whole backend + a Flutter mobile app
+  overview.
+- **Full site was then built in one go** (2026-08-01), at the user's explicit
+  request, mirroring the "build first, understand deeply after" approach that
+  worked for PinacConnect — the user was exhausted after the long PinacConnect
+  session and asked for this trade-off explicitly, aware it meant skipping the
+  usual "explain before code" process for now.
+- Built: Nav (with mobile menu) + dark/light theme toggle (Tailwind v4
+  class-based dark mode via `@custom-variant dark`, `ThemeProvider` context in
+  `app/theme-provider.js`, persisted to localStorage) + a reusable scroll-reveal
+  animation wrapper (`app/ui/reveal.js`, IntersectionObserver-based) used across
+  every page. Pages: Home (Hero, already existed), `/about`, `/skills`,
+  `/projects` (client-side tag filtering, currently featuring PinacConnect and
+  this portfolio site itself), `/contact` (working form -> `/api/contact` route
+  handler -> nodemailer via Gmail SMTP).
+- Production build (`npm run build`) passes clean, all routes compile.
+- **Still needed from the user**: generate a real Gmail App Password and put it
+  in `.env.local` (`CONTACT_EMAIL_APP_PASSWORD`, currently a placeholder) for
+  the contact form to actually send email. Also hasn't been checked in an
+  actual running browser yet, only via production build success.
+- **Owed to the user**: a proper teaching/review pass through everything just
+  built — same REVIEW.md-style treatment as PinacConnect (Server vs Client
+  components in practice, the ThemeProvider/context pattern, how the
+  IntersectionObserver reveal animation works, the API route handler +
+  nodemailer flow). Do this next, since it was explicitly deferred, not
+  skipped.
+- Not yet committed to git — the portfolio repo's last commit is still just
+  the Next.js scaffold; all of this new work is uncommitted on disk.
 
 ## Practice Quic only try to git add haha
