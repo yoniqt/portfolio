@@ -234,7 +234,7 @@ export default function Contact() {
             ))}
             <a
               href="/cv.pdf"
-              download
+              download="Neo_Nicolas_CV.pdf"
               className="flex items-center gap-1.5 text-sm font-semibold text-[var(--hero-primary-light)] hover:underline"
             >
               <Download size={14} />

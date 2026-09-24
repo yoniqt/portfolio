@@ -169,7 +169,7 @@ export default function Home() {
             </Link>
             <a
               href="/cv.pdf"
-              download
+              download="Neo_Nicolas_CV.pdf"
               className="flex items-center gap-2 rounded-full border border-[var(--border)] px-6 py-3 font-medium text-[var(--hero-text)] transition-colors hover:border-[var(--hero-primary)] hover:text-[var(--hero-primary-light)]"
             >
               <Download size={16} />
