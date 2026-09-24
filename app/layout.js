@@ -29,12 +29,14 @@ export const metadata = {
 // Runs before paint, before React hydrates, so the correct theme class is
 // already on <html> by the time anything renders - no light->dark flash and
 // no server/client class mismatch for ThemeProvider to fight with.
+// Light is the default for first-time visitors regardless of system
+// preference - dark only applies once someone explicitly toggles it.
 const noFlashThemeScript = `
 (function () {
   try {
-    var stored = localStorage.getItem("theme");
-    var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    if (theme === "dark") document.documentElement.classList.add("dark");
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
   } catch (e) {}
 })();
 `;
